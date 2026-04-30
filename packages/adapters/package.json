@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Static adapter files for Claude Code, Cursor, and Antigravity",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varunsat/design.md-generator.git",
+    "directory": "packages/adapters"
+  },
   "files": [
     "claude-code",
     "cursor",

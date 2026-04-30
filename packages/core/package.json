@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "Framework detection, token extraction, and brief building for design-md-generator",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varunsat/design.md-generator.git",
+    "directory": "packages/core"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

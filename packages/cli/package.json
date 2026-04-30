@@ -3,6 +3,11 @@
   "version": "0.1.0",
   "description": "CLI for design-md-generator: detect, scan, brief, init, update",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/varunsat/design.md-generator.git",
+    "directory": "packages/cli"
+  },
   "type": "module",
   "bin": {
     "design-md": "./dist/index.js"
