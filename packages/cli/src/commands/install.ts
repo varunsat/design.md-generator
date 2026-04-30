@@ -24,6 +24,10 @@ const MANIFESTS: Record<AgentName, AgentManifest> = {
     files: [
       { from: 'claude-code/SKILL.md', to: '.claude/skills/design-md/SKILL.md' },
       {
+        from: 'claude-code/commands/design-md.md',
+        to: '.claude/commands/design-md.md',
+      },
+      {
         from: 'claude-code/commands/design-md-init.md',
         to: '.claude/commands/design-md-init.md',
       },
