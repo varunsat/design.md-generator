@@ -1,7 +1,9 @@
 import { cac } from 'cac';
 import { runBrief } from './commands/brief.js';
 import { runDetect } from './commands/detect.js';
+import { runInit } from './commands/init.js';
 import { runScan } from './commands/scan.js';
+import { runUpdate } from './commands/update.js';
 import { fail } from './util.js';
 
 const cli = cac('design-md');
@@ -26,6 +28,44 @@ cli
   .action(async (path: string | undefined, opts: { name?: string }) => {
     await runBrief(path, { name: opts.name });
   });
+
+cli
+  .command('init [path]', 'Scaffold a new DESIGN.md with extracted tokens + placeholder prose')
+  .option('--out <file>', 'Output path (default DESIGN.md)')
+  .option('--name <name>', 'Project name to use in the front matter')
+  .option('--force', 'Overwrite the file if it already exists')
+  .option('--print-brief', 'Also print the agent brief to stdout')
+  .action(
+    async (
+      path: string | undefined,
+      opts: { out?: string; name?: string; force?: boolean; printBrief?: boolean },
+    ) => {
+      await runInit(path, {
+        out: opts.out,
+        name: opts.name,
+        force: opts.force,
+        printBrief: opts.printBrief,
+      });
+    },
+  );
+
+cli
+  .command('update [path]', 'Re-scan tokens and update an existing DESIGN.md, then emit a delta brief')
+  .option('--design <file>', 'Path to the existing DESIGN.md (default DESIGN.md)')
+  .option('--brief-only', 'Print only the delta brief; do not modify the file')
+  .option('--no-brief', 'Update the file but do not print the brief')
+  .action(
+    async (
+      path: string | undefined,
+      opts: { design?: string; briefOnly?: boolean; brief?: boolean },
+    ) => {
+      await runUpdate(path, {
+        design: opts.design,
+        briefOnly: opts.briefOnly,
+        printBrief: opts.brief !== false,
+      });
+    },
+  );
 
 cli.help();
 cli.version('0.0.0');

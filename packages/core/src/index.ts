@@ -23,3 +23,6 @@ export {
 export type { CssVarsOptions } from './extractors/index.js';
 export { buildBrief } from './brief.js';
 export type { BriefOptions } from './brief.js';
+export { parseDesignMd, serializeDesignMd, scaffoldBody } from './file.js';
+export type { ParsedDesignMd } from './file.js';
+export { mergeTokens } from './merge.js';
