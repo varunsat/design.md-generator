@@ -1,0 +1,61 @@
+---
+description: Generate or update a DESIGN.md (Google Stitch open format) for this project. Apply when the user asks to create, update, or audit DESIGN.md.
+globs: DESIGN.md, design.md
+alwaysApply: false
+---
+
+# DESIGN.md workflow
+
+Cursor: when this rule attaches, the user has [`@creoit/design-md`](https://www.npmjs.com/package/@creoit/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`. Use them — do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
+
+## When to engage
+
+- **Create / generate / bootstrap** a DESIGN.md for a project that does not yet have one → init flow.
+- **Update / refresh / sync** an existing DESIGN.md after the codebase has changed → update flow.
+- **Audit** a DESIGN.md for drift against the current code → update flow with `--brief-only`.
+
+## Init flow
+
+1. ```bash
+   npx @creoit/design-md detect
+   ```
+   If no frameworks are detected on a clearly web-app project, ask the user where styling lives before continuing.
+2. ```bash
+   npx @creoit/design-md init . --print-brief
+   ```
+   Writes `DESIGN.md` (front matter + placeholder prose) and prints the agent brief.
+3. Read the brief. Per section: a purpose, the tokens to describe, and prompts (treat as questions to answer).
+4. Edit `DESIGN.md` to fill in real prose:
+   - Overview: 2–3 sentences on brand personality and audience.
+   - Colors: per-token role and rationale; *one* primary-action color.
+   - Typography: per-family/level role, casing/weight conventions.
+   - Layout / Elevation / Shapes: strategy, not just values.
+   - Components: variant behaviors (hover, pressed); load-bearing components.
+   - Do's and Don'ts: 3–6 short rules incl. WCAG AA contrast.
+5. ```bash
+   npx @google/design.md lint DESIGN.md
+   ```
+   Fix every error and warning.
+
+## Update flow
+
+1. ```bash
+   npx @creoit/design-md update . --brief-only
+   ```
+2. If the delta is empty, stop and report.
+3. ```bash
+   npx @creoit/design-md update .
+   ```
+   Front matter is rewritten in place; body and `components` are preserved.
+4. Revise only the prose sections the brief flagged.
+5. ```bash
+   npx @google/design.md lint DESIGN.md
+   ```
+
+## Constraints
+
+- The CLI is deterministic — never patch its output by hand.
+- Never invent tokens that weren't extracted.
+- Never reorder or rename canonical sections (Overview → Colors → Typography → Layout → Elevation & Depth → Shapes → Components → Do's and Don'ts).
+- Preserve hand-authored `components`.
+- Quote color hex strings (`"#RRGGBB"`) — the spec requires it.
