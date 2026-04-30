@@ -8,5 +8,9 @@
     "cursor",
     "antigravity",
     "_shared"
-  ]
+  ],
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": "./*"
+  }
 }

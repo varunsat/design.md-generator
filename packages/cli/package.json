@@ -15,6 +15,7 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@creoit/design-md-adapters": "workspace:*",
     "@creoit/design-md-core": "workspace:*",
     "cac": "^6.7.14",
     "kleur": "^4.1.5",

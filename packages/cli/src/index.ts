@@ -2,6 +2,7 @@ import { cac } from 'cac';
 import { runBrief } from './commands/brief.js';
 import { runDetect } from './commands/detect.js';
 import { runInit } from './commands/init.js';
+import { runInstall, type AgentName } from './commands/install.js';
 import { runScan } from './commands/scan.js';
 import { runUpdate } from './commands/update.js';
 import { fail } from './util.js';
@@ -66,6 +67,14 @@ cli
       });
     },
   );
+
+cli
+  .command('install [path]', 'Copy adapter files for an AI agent into the project')
+  .option('--agent <agent>', 'claude-code | cursor | antigravity')
+  .option('--force', 'Overwrite existing adapter files')
+  .action(async (path: string | undefined, opts: { agent?: AgentName; force?: boolean }) => {
+    await runInstall(path, { agent: opts.agent, force: opts.force });
+  });
 
 cli.help();
 cli.version('0.0.0');
