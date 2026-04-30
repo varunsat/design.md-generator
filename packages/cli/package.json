@@ -17,6 +17,7 @@
   "dependencies": {
     "@creoit/design-md-core": "workspace:*",
     "cac": "^6.7.14",
-    "kleur": "^4.1.5"
+    "kleur": "^4.1.5",
+    "yaml": "^2.6.0"
   }
 }
