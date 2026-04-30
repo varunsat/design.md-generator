@@ -1,5 +1,6 @@
 import type { DesignTokens, ExtractionResult, ProjectContext } from '../types.js';
 import { findFirstExisting } from '../utils/fs.js';
+import { extractCssVars } from './css-vars.js';
 import { extractTailwindV3 } from './tailwind-v3.js';
 import { extractTailwindV4 } from './tailwind-v4.js';
 
@@ -19,6 +20,8 @@ export async function extractAll(ctx: ProjectContext): Promise<ExtractionResult>
   const sources: string[] = [];
   const warnings: string[] = [];
 
+  const ids = new Set(ctx.frameworks.map((f) => f.id));
+
   for (const fw of ctx.frameworks) {
     if (fw.id === 'tailwind-v3') {
       const cfg = await findFirstExisting(ctx.root, TAILWIND_V3_CONFIGS);
@@ -26,6 +29,10 @@ export async function extractAll(ctx: ProjectContext): Promise<ExtractionResult>
       mergeResult(tokens, sources, warnings, await extractTailwindV3(cfg));
     } else if (fw.id === 'tailwind-v4') {
       mergeResult(tokens, sources, warnings, await extractTailwindV4(ctx.root));
+    } else if (fw.id === 'shadcn') {
+      mergeResult(tokens, sources, warnings, await extractCssVars(ctx.root, { shadcn: true }));
+    } else if (fw.id === 'css-vars' && !ids.has('shadcn')) {
+      mergeResult(tokens, sources, warnings, await extractCssVars(ctx.root));
     }
   }
 
@@ -60,4 +67,5 @@ function mergeResult(
   }
 }
 
-export { extractTailwindV3, extractTailwindV4 };
+export { extractCssVars, extractTailwindV3, extractTailwindV4 };
+export type { CssVarsOptions } from './css-vars.js';
