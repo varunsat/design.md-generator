@@ -77,7 +77,7 @@ cli
   });
 
 cli.help();
-cli.version('0.6.1');
+cli.version('0.6.2');
 
 const args = process.argv.slice(2);
 if (args.length === 0) {

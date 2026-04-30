@@ -1,6 +1,6 @@
 {
   "name": "@creoit.com/design-md",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "CLI for design-md-generator: detect, scan, brief, init, update",
   "license": "MIT",
   "repository": {
