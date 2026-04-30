@@ -1,4 +1,4 @@
-import { detect, extractAll } from '@creoit/design-md-core';
+import { detect, extractAll } from '@varunsat/design-md-core';
 import { stringify as stringifyYaml } from 'yaml';
 import { resolveRoot } from '../util.js';
 

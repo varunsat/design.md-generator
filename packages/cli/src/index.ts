@@ -77,7 +77,7 @@ cli
   });
 
 cli.help();
-cli.version('0.0.0');
+cli.version('0.1.0');
 
 const args = process.argv.slice(2);
 if (args.length === 0) {
@@ -87,7 +87,12 @@ if (args.length === 0) {
 
 cli.parse(process.argv, { run: false });
 
-cli.runMatchedCommand().catch((err: unknown) => {
-  const message = err instanceof Error ? err.message : String(err);
-  fail(message);
-});
+// runMatchedCommand returns undefined for built-in flags like --help/--version
+// (cac handles those itself before any command match). Guard the chain.
+const result = cli.runMatchedCommand();
+if (result && typeof (result as Promise<unknown>).catch === 'function') {
+  (result as Promise<unknown>).catch((err: unknown) => {
+    const message = err instanceof Error ? err.message : String(err);
+    fail(message);
+  });
+}

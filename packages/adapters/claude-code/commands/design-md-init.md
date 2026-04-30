@@ -4,13 +4,13 @@ description: Generate a DESIGN.md from this codebase
 
 You are running the **init** flow for a DESIGN.md.
 
-1. Confirm what `@creoit/design-md` detects:
+1. Confirm what `@varunsat/design-md` detects:
    ```bash
-   npx @creoit/design-md detect
+   npx @varunsat/design-md detect
    ```
 2. Run init with the brief:
    ```bash
-   npx @creoit/design-md init . --print-brief
+   npx @varunsat/design-md init . --print-brief
    ```
 3. Read the brief from stdout. It contains the eight canonical sections, the tokens each section should describe, and concrete prompts.
 4. Edit `DESIGN.md` to replace every placeholder paragraph with real prose, guided by the brief. Cover:

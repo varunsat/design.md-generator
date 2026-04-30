@@ -1,4 +1,4 @@
-import { detect } from '@creoit/design-md-core';
+import { detect } from '@varunsat/design-md-core';
 import { resolveRoot } from '../util.js';
 
 export interface DetectOptions {

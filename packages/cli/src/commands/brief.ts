@@ -1,4 +1,4 @@
-import { buildBrief, detect, extractAll } from '@creoit/design-md-core';
+import { buildBrief, detect, extractAll } from '@varunsat/design-md-core';
 import { resolveRoot } from '../util.js';
 
 export interface BriefOptions {

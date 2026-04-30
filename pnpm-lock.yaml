@@ -25,10 +25,10 @@ importers:
 
   packages/cli:
     dependencies:
-      '@creoit/design-md-adapters':
+      '@varunsat/design-md-adapters':
         specifier: workspace:*
         version: link:../adapters
-      '@creoit/design-md-core':
+      '@varunsat/design-md-core':
         specifier: workspace:*
         version: link:../core
       cac:

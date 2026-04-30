@@ -45,7 +45,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # Build before typecheck so that the cli's `tsc --noEmit` can
-      # resolve `@creoit/design-md-core` types (the package exposes
+      # resolve `@varunsat/design-md-core` types (the package exposes
       # types via dist/index.d.ts).
       - name: Build
         run: pnpm build
