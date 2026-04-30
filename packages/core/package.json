@@ -1,5 +1,5 @@
 {
-  "name": "@varunsat/design-md-core",
+  "name": "@creoit/design-md-core",
   "version": "0.6.0",
   "description": "Framework detection, token extraction, and brief building for design-md-generator",
   "license": "MIT",

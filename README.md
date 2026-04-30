@@ -34,12 +34,12 @@ The CLI never calls an LLM itself. Token extraction is deterministic; prose is d
 
 ```bash
 # 1. Install the agent adapter for your editor
-npx @varunsat/design-md install --agent claude-code     # or: cursor, antigravity
+npx @creoit/design-md install --agent claude-code     # or: cursor, antigravity
 
 # 2. Ask your AI agent: "create a DESIGN.md for this project"
 #    Under the hood the agent will run:
-npx @varunsat/design-md detect                         # confirm framework
-npx @varunsat/design-md init . --print-brief           # scaffold + brief
+npx @creoit/design-md detect                         # confirm framework
+npx @creoit/design-md init . --print-brief           # scaffold + brief
 # ...the agent edits DESIGN.md to fill in prose...
 npx @google/design.md lint DESIGN.md                 # validate
 ```
@@ -50,25 +50,25 @@ For an existing DESIGN.md, ask the agent to "update DESIGN.md against the curren
 
 ```bash
 # Read-only — inspect what the generator sees
-npx @varunsat/design-md detect [path]                   # detected frameworks (JSON)
-npx @varunsat/design-md scan [path]                     # extracted tokens (YAML)
-npx @varunsat/design-md brief [path]                    # full agent brief (markdown)
+npx @creoit/design-md detect [path]                   # detected frameworks (JSON)
+npx @creoit/design-md scan [path]                     # extracted tokens (YAML)
+npx @creoit/design-md brief [path]                    # full agent brief (markdown)
 
 # Write paths
-npx @varunsat/design-md init [path] [--out DESIGN.md] [--name X] [--print-brief]
-npx @varunsat/design-md update [path] [--design DESIGN.md] [--brief-only] [--no-brief]
+npx @creoit/design-md init [path] [--out DESIGN.md] [--name X] [--print-brief]
+npx @creoit/design-md update [path] [--design DESIGN.md] [--brief-only] [--no-brief]
 
 # Agent adapter installer
-npx @varunsat/design-md install --agent claude-code [path]
-npx @varunsat/design-md install --agent cursor       [path]
-npx @varunsat/design-md install --agent antigravity  [path]
+npx @creoit/design-md install --agent claude-code [path]
+npx @creoit/design-md install --agent cursor       [path]
+npx @creoit/design-md install --agent antigravity  [path]
 
 # Validation (delegated to @google/design.md — installed separately)
 npx @google/design.md lint DESIGN.md
 npx @google/design.md diff DESIGN.md DESIGN.new.md
 ```
 
-`design-md scan` writes YAML to stdout and warnings to stderr, so `npx @varunsat/design-md scan > tokens.yaml` produces a clean file.
+`design-md scan` writes YAML to stdout and warnings to stderr, so `npx @creoit/design-md scan > tokens.yaml` produces a clean file.
 
 ## Framework support
 
@@ -100,9 +100,9 @@ Each adapter is a static file describing the workflow. The CLI never imposes log
 
 ```
 packages/
-├── core/        # @varunsat/design-md-core   – detection, extraction, brief, merge, file
-├── cli/         # @varunsat/design-md        – the CLI
-└── adapters/    # @varunsat/design-md-adapters – static adapter files
+├── core/        # @creoit/design-md-core   – detection, extraction, brief, merge, file
+├── cli/         # @creoit/design-md        – the CLI
+└── adapters/    # @creoit/design-md-adapters – static adapter files
 examples/
 ├── next-tailwind-v4/   # smoke fixture
 └── vite-shadcn/        # smoke fixture

@@ -6,7 +6,7 @@ alwaysApply: false
 
 # DESIGN.md workflow
 
-Cursor: when this rule attaches, the user has [`@varunsat/design-md`](https://www.npmjs.com/package/@varunsat/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`. Use them — do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
+Cursor: when this rule attaches, the user has [`@creoit/design-md`](https://www.npmjs.com/package/@creoit/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`. Use them — do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
 
 ## When to engage
 
@@ -17,11 +17,11 @@ Cursor: when this rule attaches, the user has [`@varunsat/design-md`](https://ww
 ## Init flow
 
 1. ```bash
-   npx @varunsat/design-md detect
+   npx @creoit/design-md detect
    ```
    If no frameworks are detected on a clearly web-app project, ask the user where styling lives before continuing.
 2. ```bash
-   npx @varunsat/design-md init . --print-brief
+   npx @creoit/design-md init . --print-brief
    ```
    Writes `DESIGN.md` (front matter + placeholder prose) and prints the agent brief.
 3. Read the brief. Per section: a purpose, the tokens to describe, and prompts (treat as questions to answer).
@@ -40,11 +40,11 @@ Cursor: when this rule attaches, the user has [`@varunsat/design-md`](https://ww
 ## Update flow
 
 1. ```bash
-   npx @varunsat/design-md update . --brief-only
+   npx @creoit/design-md update . --brief-only
    ```
 2. If the delta is empty, stop and report.
 3. ```bash
-   npx @varunsat/design-md update .
+   npx @creoit/design-md update .
    ```
    Front matter is rewritten in place; body and `components` are preserved.
 4. Revise only the prose sections the brief flagged.

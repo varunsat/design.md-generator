@@ -6,12 +6,12 @@ You are running the **update** flow for a DESIGN.md.
 
 1. Print the delta brief without writing yet:
    ```bash
-   npx @varunsat/design-md update . --brief-only
+   npx @creoit/design-md update . --brief-only
    ```
 2. If the diff is empty, stop and report "no changes" — do not edit the file.
 3. Apply the token diff to the file:
    ```bash
-   npx @varunsat/design-md update .
+   npx @creoit/design-md update .
    ```
    This rewrites the YAML front matter only, preserving the body and any hand-authored `components`.
 4. Read the brief from step 1. For each section flagged as **Updates needed**, revise the prose so it accurately describes the new token values. Leave untouched sections alone.

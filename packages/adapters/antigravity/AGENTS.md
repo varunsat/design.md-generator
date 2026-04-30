@@ -2,7 +2,7 @@
 
 Antigravity (and any agent that reads `AGENTS.md`): when the user asks to create, update, or audit a `DESIGN.md` (Google Stitch open format), follow this workflow. Do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
 
-The user has [`@varunsat/design-md`](https://www.npmjs.com/package/@varunsat/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`.
+The user has [`@creoit/design-md`](https://www.npmjs.com/package/@creoit/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`.
 
 ## Triggers
 
@@ -16,11 +16,11 @@ If `DESIGN.md` is absent, default to **init**. If present, default to **update**
 
 1. Detect frameworks:
    ```bash
-   npx @varunsat/design-md detect
+   npx @creoit/design-md detect
    ```
 2. Generate scaffold + brief:
    ```bash
-   npx @varunsat/design-md init . --print-brief
+   npx @creoit/design-md init . --print-brief
    ```
 3. Read the brief from stdout. It enumerates the eight canonical sections with per-section purpose, tokens to describe, and prompts.
 4. Edit `DESIGN.md`. Replace every placeholder paragraph with real prose:
@@ -42,12 +42,12 @@ If `DESIGN.md` is absent, default to **init**. If present, default to **update**
 
 1. Print the delta brief without modifying the file:
    ```bash
-   npx @varunsat/design-md update . --brief-only
+   npx @creoit/design-md update . --brief-only
    ```
 2. If the delta is empty, stop and report. Do not edit.
 3. Apply the token changes:
    ```bash
-   npx @varunsat/design-md update .
+   npx @creoit/design-md update .
    ```
 4. Revise only the prose sections the brief flagged. Leave the rest alone.
 5. Validate:

@@ -1,5 +1,5 @@
 {
-  "name": "@varunsat/design-md",
+  "name": "@creoit/design-md",
   "version": "0.6.0",
   "description": "CLI for design-md-generator: detect, scan, brief, init, update",
   "license": "MIT",
@@ -25,8 +25,8 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
-    "@varunsat/design-md-adapters": "workspace:*",
-    "@varunsat/design-md-core": "workspace:*",
+    "@creoit/design-md-adapters": "workspace:*",
+    "@creoit/design-md-core": "workspace:*",
     "cac": "^6.7.14",
     "kleur": "^4.1.5",
     "yaml": "^2.6.0"

@@ -59,7 +59,7 @@ export async function runInstall(path: string | undefined, options: InstallOptio
   if (!manifest) fail(`unknown agent: ${agent}`);
 
   const root = resolveRoot(path);
-  const adaptersDir = dirname(require.resolve('@varunsat/design-md-adapters/package.json'));
+  const adaptersDir = dirname(require.resolve('@creoit/design-md-adapters/package.json'));
 
   for (const file of manifest.files) {
     const src = join(adaptersDir, file.from);
@@ -86,8 +86,8 @@ export async function runInstall(path: string | undefined, options: InstallOptio
   }
 }
 
-const DELIM_BEGIN = '<!-- BEGIN @varunsat/design-md adapter -->';
-const DELIM_END = '<!-- END @varunsat/design-md adapter -->';
+const DELIM_BEGIN = '<!-- BEGIN @creoit/design-md adapter -->';
+const DELIM_END = '<!-- END @creoit/design-md adapter -->';
 
 /**
  * Append the adapter content to an existing file, wrapped in delimiters so

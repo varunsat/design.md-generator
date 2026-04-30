@@ -1,6 +1,6 @@
 # DESIGN.md workflow
 
-The user has [`@varunsat/design-md`](https://www.npmjs.com/package/@varunsat/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`. Use them — do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
+The user has [`@creoit/design-md`](https://www.npmjs.com/package/@creoit/design-md) and [`@google/design.md`](https://github.com/google-labs-code/design.md) available via `npx`. Use them — do not author DESIGN.md by hand. The CLI does deterministic token extraction; **your job is the prose.**
 
 ## When to engage
 
@@ -18,12 +18,12 @@ Use when no DESIGN.md exists.
 
 1. **Confirm what was detected.** Run:
    ```bash
-   npx @varunsat/design-md detect
+   npx @creoit/design-md detect
    ```
    If no frameworks are detected and the project is clearly a web app, ask the user where the styling lives before proceeding.
 2. **Generate the scaffold + brief.** Run:
    ```bash
-   npx @varunsat/design-md init . --print-brief
+   npx @creoit/design-md init . --print-brief
    ```
    This writes a `DESIGN.md` with the YAML front matter (extracted tokens) and placeholder prose, and prints the agent brief to stdout.
 3. **Read the brief carefully.** It contains, per section: the spec's purpose, the tokens to describe, and prompts. Treat the prompts as questions to answer.
@@ -46,13 +46,13 @@ Use when DESIGN.md already exists and the codebase has changed.
 
 1. **Re-scan with diff.** Run:
    ```bash
-   npx @varunsat/design-md update . --brief-only
+   npx @creoit/design-md update . --brief-only
    ```
    This compares current code-derived tokens against the existing `DESIGN.md` front matter and prints a delta brief without modifying the file. The brief flags which prose sections likely need revision.
 2. **Triage the diff.** If the delta is empty, stop here — the user can see the report.
 3. **Apply the token changes + revise prose.** Re-run:
    ```bash
-   npx @varunsat/design-md update .
+   npx @creoit/design-md update .
    ```
    This rewrites the YAML front matter with the merged tokens (preserving custom keys and never overwriting `components`). Then edit only the prose sections flagged in the brief — leave untouched sections alone.
 4. **Validate.** Run lint as in step 5 of Init.
