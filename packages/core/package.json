@@ -1,5 +1,5 @@
 {
-  "name": "@creoit/design-md-core",
+  "name": "@creoit.com/design-md-core",
   "version": "0.6.1",
   "description": "Framework detection, token extraction, and brief building for design-md-generator",
   "license": "MIT",

@@ -9,7 +9,7 @@
 #     under the `packages/` glob. pnpm rewrites `workspace:*` deps to the
 #     actual version at publish time.
 #   - Publishing requires an `NPM_TOKEN` repo secret holding an npmjs.org
-#     "automation" access token for the @creoit scope.
+#     "automation" access token for the @creoit.com scope.
 
 name: CI / Publish
 
@@ -44,7 +44,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       # Build before typecheck so that the cli's `tsc --noEmit` can
-      # resolve `@creoit/design-md-core` types (the package exposes
+      # resolve `@creoit.com/design-md-core` types (the package exposes
       # types via dist/index.d.ts).
       - name: Build
         run: pnpm build

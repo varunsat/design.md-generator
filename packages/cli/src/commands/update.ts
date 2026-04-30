@@ -5,7 +5,7 @@ import {
   mergeTokens,
   parseDesignMd,
   serializeDesignMd,
-} from '@creoit/design-md-core';
+} from '@creoit.com/design-md-core';
 import { readFile, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fail, resolveRoot } from '../util.js';
