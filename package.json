@@ -11,7 +11,8 @@
     "dev": "pnpm -r --filter './packages/*' --parallel dev",
     "test": "pnpm -r --filter './packages/*' test",
     "typecheck": "pnpm --filter @varunsat/design-md-core build && pnpm -r --filter './packages/*' typecheck",
-    "clean": "pnpm -r exec rm -rf dist .turbo *.tsbuildinfo"
+    "clean": "pnpm -r exec rm -rf dist .turbo *.tsbuildinfo",
+    "release": "scripts/release.sh"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
