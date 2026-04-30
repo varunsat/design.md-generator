@@ -1,4 +1,4 @@
-# Build and publish the design-md-generator packages to npmjs.org.
+# Build and publish the design-md-generator packages to GitHub Packages.
 #
 # Triggers:
 #   - on every push to main and pull_request: install, typecheck, test, build (CI)
@@ -8,8 +8,9 @@
 #   - This is a pnpm monorepo. We publish each public workspace package
 #     under the `packages/` glob. pnpm rewrites `workspace:*` deps to the
 #     actual version at publish time.
-#   - Publishing requires an `NPM_TOKEN` repo secret holding an npmjs.org
-#     "automation" access token for the @varunsat scope.
+#   - GitHub Packages requires the npm scope to match the repository
+#     owner (lowercased). Update the package `name` fields if your scope
+#     differs — see "Publishing" in the README.
 
 name: CI / Publish
 
@@ -56,10 +57,13 @@ jobs:
         run: pnpm test
 
   publish:
-    name: Publish to npmjs.org
+    name: Publish to GitHub Packages
     needs: ci
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     steps:
       - uses: actions/checkout@v4
 
@@ -67,12 +71,12 @@ jobs:
         # Version is read from `packageManager` in package.json.
         uses: pnpm/action-setup@v4
 
-      - name: Set up Node (with npmjs.org registry)
+      - name: Set up Node (with GitHub Packages registry)
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
-          registry-url: https://registry.npmjs.org/
+          registry-url: https://npm.pkg.github.com/
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -83,7 +87,7 @@ jobs:
       - name: Publish public workspace packages
         # --no-git-checks: pnpm otherwise refuses to publish from a detached
         # checkout (releases run on the tag's commit, not the main branch).
-        # --access public: required for scoped packages on first publish.
+        # --access public: required for scoped packages.
         run: pnpm -r --filter './packages/*' publish --access public --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
