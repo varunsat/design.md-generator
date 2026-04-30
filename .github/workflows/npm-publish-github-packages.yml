@@ -32,9 +32,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up pnpm
+        # Version is read from `packageManager` in package.json.
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -66,9 +65,8 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Set up pnpm
+        # Version is read from `packageManager` in package.json.
         uses: pnpm/action-setup@v4
-        with:
-          version: 9
 
       - name: Set up Node (with GitHub Packages registry)
         uses: actions/setup-node@v4
