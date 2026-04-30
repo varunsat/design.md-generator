@@ -5,11 +5,13 @@
 #   - on a published GitHub Release: also publish the workspace packages
 #
 # Notes:
-#   - This is a pnpm monorepo. We publish each public workspace package
-#     under the `packages/` glob. pnpm rewrites `workspace:*` deps to the
-#     actual version at publish time.
-#   - Publishing requires an `NPM_TOKEN` repo secret holding an npmjs.org
-#     "automation" access token for the @creoit.com scope.
+#   - This is a pnpm monorepo. Each public workspace package under
+#     `packages/` is published; pnpm rewrites `workspace:*` deps to
+#     concrete versions at publish time.
+#   - Publishing uses npm Trusted Publishing (OIDC) — no NPM_TOKEN
+#     secret needed. The publish job has `id-token: write` so npm can
+#     verify the workflow against the Trusted Publisher entry on each
+#     package's settings page on npmjs.org.
 
 name: CI / Publish
 
@@ -56,10 +58,15 @@ jobs:
         run: pnpm test
 
   publish:
-    name: Publish to npmjs.org
+    name: Publish to npmjs.org (OIDC)
     needs: ci
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      # Required for npm Trusted Publishing — lets the runner mint an
+      # OIDC token that npm verifies against the Trusted Publisher entry.
+      id-token: write
     steps:
       - uses: actions/checkout@v4
 
@@ -74,6 +81,11 @@ jobs:
           cache: pnpm
           registry-url: https://registry.npmjs.org/
 
+      # npm CLI must be 11.5.1+ for trusted publishing. Node 20 ships
+      # with an older npm; upgrade in-place.
+      - name: Upgrade npm to a Trusted-Publishing-aware version
+        run: npm install -g npm@latest
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -84,6 +96,5 @@ jobs:
         # --no-git-checks: pnpm otherwise refuses to publish from a detached
         # checkout (releases run on the tag's commit, not the main branch).
         # --access public: required for scoped packages on first publish.
-        run: pnpm -r --filter './packages/*' publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        # --provenance: emits a signed provenance attestation alongside.
+        run: pnpm -r --filter './packages/*' publish --access public --provenance --no-git-checks
