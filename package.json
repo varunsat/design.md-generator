@@ -1,0 +1,26 @@
+{
+  "name": "design-md-generator",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Generate and maintain DESIGN.md for any web project, driven by AI coding agents",
+  "license": "MIT",
+  "author": "Creo IT",
+  "type": "module",
+  "scripts": {
+    "build": "pnpm -r --filter './packages/*' build",
+    "dev": "pnpm -r --filter './packages/*' --parallel dev",
+    "test": "pnpm -r --filter './packages/*' test",
+    "typecheck": "pnpm -r --filter './packages/*' typecheck",
+    "clean": "pnpm -r exec rm -rf dist .turbo *.tsbuildinfo"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  },
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=18.18.0"
+  }
+}
