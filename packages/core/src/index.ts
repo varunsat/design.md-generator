@@ -21,3 +21,5 @@ export {
   extractTailwindV4,
 } from './extractors/index.js';
 export type { CssVarsOptions } from './extractors/index.js';
+export { buildBrief } from './brief.js';
+export type { BriefOptions } from './brief.js';
