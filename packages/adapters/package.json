@@ -1,6 +1,6 @@
 {
   "name": "@creoit.com/design-md-adapters",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Static adapter files for Claude Code, Cursor, and Antigravity",
   "license": "MIT",
   "repository": {
