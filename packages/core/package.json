@@ -1,6 +1,6 @@
 {
   "name": "@varunsat/design-md-core",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "description": "Framework detection, token extraction, and brief building for design-md-generator",
   "license": "MIT",
   "repository": {
@@ -17,7 +17,9 @@
       "import": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/"

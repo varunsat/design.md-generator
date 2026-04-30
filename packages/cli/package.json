@@ -1,6 +1,6 @@
 {
   "name": "@varunsat/design-md",
-  "version": "0.1.0",
+  "version": "0.6.0",
   "description": "CLI for design-md-generator: detect, scan, brief, init, update",
   "license": "MIT",
   "repository": {
@@ -12,7 +12,9 @@
   "bin": {
     "design-md": "./dist/index.js"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com/"
