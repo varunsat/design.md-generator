@@ -75,6 +75,19 @@ describe('extractTailwindV3', () => {
     expect(r.tokens.typography?.lg?.fontSize).toBe('18px');
   });
 
+  it('unwraps `satisfies Config` and `as Config` type assertions', async () => {
+    const root = await tmpRoot({
+      'tailwind.config.ts': `
+        import type { Config } from 'tailwindcss';
+        export default {
+          theme: { extend: { colors: { primary: '#000' } } },
+        } satisfies Config;
+      `,
+    });
+    const r = await extractTailwindV3(join(root, 'tailwind.config.ts'));
+    expect(r.tokens.colors).toEqual({ primary: '#000' });
+  });
+
   it('warns on non-literal values rather than crashing', async () => {
     const root = await tmpRoot({
       'tailwind.config.ts': `

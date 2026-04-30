@@ -55,10 +55,7 @@ export async function extractTailwindV3(configPath: string): Promise<ExtractionR
   traverse(ast, {
     ExportDefaultDeclaration(path: NodePath) {
       const decl = (path.node as { declaration: Node }).declaration;
-      if (decl.type === 'ObjectExpression') configRoot = decl as ObjectExpression;
-      else if (decl.type === 'TSAsExpression' && decl.expression.type === 'ObjectExpression') {
-        configRoot = decl.expression as ObjectExpression;
-      }
+      configRoot = unwrapToObject(decl);
     },
     AssignmentExpression(path: NodePath) {
       const node = path.node as {
@@ -106,6 +103,25 @@ export async function extractTailwindV3(configPath: string): Promise<ExtractionR
   }
 
   return { tokens, sources: [configPath], warnings };
+}
+
+/**
+ * Peel off TS type-assertion wrappers (`x as Config`, `x satisfies Config`)
+ * and parenthesised expressions to reach the underlying ObjectExpression.
+ */
+function unwrapToObject(node: Node): ObjectExpression | undefined {
+  if (node.type === 'ObjectExpression') return node as ObjectExpression;
+  const wrapper = node as { type: string; expression?: Node };
+  if (
+    (wrapper.type === 'TSAsExpression' ||
+      wrapper.type === 'TSSatisfiesExpression' ||
+      wrapper.type === 'TSTypeAssertion' ||
+      wrapper.type === 'ParenthesizedExpression') &&
+    wrapper.expression
+  ) {
+    return unwrapToObject(wrapper.expression);
+  }
+  return undefined;
 }
 
 function findProperty(obj: ObjectExpression, name: string): Expression | undefined {
