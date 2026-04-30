@@ -166,11 +166,13 @@ const SECTIONS: SectionDef[] = [
   {
     title: 'Overview',
     purpose:
-      'Holistic description of look and feel — brand personality, target audience, and the emotional response the UI should evoke.',
+      'Holistic description of look and feel — product identity, brand personality, target audience, and the emotional response the UI should evoke.',
     prompts: [
       'What single sentence captures the visual identity? (e.g. "Architectural minimalism meets journalistic gravitas")',
       'Who is the audience and what tone matches them? (playful / professional / neutral / dense / spacious)',
-      'When the spec is silent on a choice, what default should the agent reach for?',
+      'Product identity: name, tagline, one-line description. How is the product introduced in the UI itself?',
+      'Logo: where it appears (header, splash, login), allowed forms (mark, wordmark, lockup), minimum sizes, and clear-space rules.',
+      'When the spec is silent on a specific decision, what default should the agent reach for?',
     ],
   },
   {
@@ -223,11 +225,20 @@ const SECTIONS: SectionDef[] = [
   },
   {
     title: 'Components',
-    purpose: 'Style guidance for component atoms (buttons, chips, lists, inputs, ...).',
+    purpose:
+      'Style guidance for every component atom and composite the product uses. Aim for completeness — this is the section a downstream agent reads to know what each thing should look like.',
     tokenGroup: 'components',
     prompts: [
-      'For each component variant, describe the intended use and any state behavior (hover, pressed, disabled).',
-      'Highlight components whose appearance is *load-bearing* for the brand.',
+      'Document **every** component the product uses. Group by category and write a paragraph per component:',
+      '  - **Identity & chrome**: Header (logo + nav + primary action), Footer (links, copyright, social), App name, Tagline, Page Title, Page Subtitle, Section header.',
+      '  - **Actions**: Primary button, Secondary button, Tertiary / ghost button, Destructive button, Icon button, Link button. Cover hover / focus / pressed / disabled states.',
+      '  - **Inputs**: Text input, Text area, Select, Combobox, Checkbox, Radio, Switch, Slider, Date picker. Cover label / placeholder / helper / error states.',
+      '  - **Containers**: Card, Panel, Modal, Drawer / Sheet, Dialog, Popover.',
+      '  - **Navigation**: Top nav, Side nav, Breadcrumbs, Tabs, Pagination, Stepper.',
+      '  - **Feedback**: Tooltip, Toast, Alert / Banner, Badge, Tag / Chip, Progress (bar + spinner), Skeleton.',
+      '  - **Data display**: List item, Table row, Column header, Divider, Avatar, Empty state, Stat card.',
+      'For each component answer: (1) purpose and where it appears, (2) which color / typography / spacing / radius tokens it uses (use `{colors.x}` reference syntax), (3) variants and states, (4) anything brand-load-bearing.',
+      'Encode the most important components as concrete `components:` entries in the YAML front matter (e.g., `button-primary`, `button-primary-hover`, `card-default`, `header`, `footer`) so the design system is machine-readable. Use token references for colors and typography.',
     ],
   },
   {

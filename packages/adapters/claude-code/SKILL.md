@@ -33,11 +33,11 @@ Use when no DESIGN.md exists.
    This writes a `DESIGN.md` with the YAML front matter (extracted tokens) and placeholder prose, and prints the agent brief to stdout.
 3. **Read the brief carefully.** It contains, per section: the spec's purpose, the tokens to describe, and prompts. Treat the prompts as questions to answer.
 4. **Edit DESIGN.md to fill in the prose.** Replace each placeholder paragraph with real content guided by the brief. Specifically:
-   - **Overview**: 2–3 sentences capturing the brand personality.
+   - **Overview**: 2–3 sentences capturing the brand personality, plus **product identity** — app name, tagline, logo placement and rules.
    - **Colors**: per-token rationale — what role each color plays, when *not* to use it.
    - **Typography**: per-family/level rationale — narrative voice vs. technical data, casing rules.
    - **Layout / Elevation / Shapes**: the strategy, not just the values.
-   - **Components**: variant behaviors (hover, pressed), brand-load-bearing components.
+   - **Components**: **be exhaustive**. Enumerate every component the product uses, grouped by category — Identity & chrome (Header, Footer, App name, Page Title/Subtitle, Section header), Actions (buttons, icon buttons), Inputs (text/select/checkbox/radio/switch), Containers (Card, Modal, Drawer), Navigation (Top/Side nav, Tabs, Breadcrumbs, Pagination), Feedback (Tooltip, Toast, Alert, Badge, Progress), Data display (List, Table, Avatar, Empty state). For each: purpose, which tokens it uses, variants and states. Add concrete `components:` YAML entries for the load-bearing ones.
    - **Do's and Don'ts**: 3–6 short rules; cover primary-action discipline, font/color mixing limits, WCAG AA contrast.
 5. **Validate.** Run:
    ```bash

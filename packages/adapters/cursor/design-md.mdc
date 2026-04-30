@@ -26,11 +26,11 @@ Cursor: when this rule attaches, the user has [`@creoit.com/design-md`](https://
    Writes `DESIGN.md` (front matter + placeholder prose) and prints the agent brief.
 3. Read the brief. Per section: a purpose, the tokens to describe, and prompts (treat as questions to answer).
 4. Edit `DESIGN.md` to fill in real prose:
-   - Overview: 2–3 sentences on brand personality and audience.
+   - Overview: 2–3 sentences on brand personality and audience. Plus product identity — app name, tagline, logo rules.
    - Colors: per-token role and rationale; *one* primary-action color.
    - Typography: per-family/level role, casing/weight conventions.
    - Layout / Elevation / Shapes: strategy, not just values.
-   - Components: variant behaviors (hover, pressed); load-bearing components.
+   - Components: **be exhaustive**. Cover Identity & chrome (Header, Footer, App name, Page Title/Subtitle), Actions (buttons), Inputs, Containers (Card, Modal), Navigation, Feedback (Tooltip, Toast, Alert, Badge), Data display (List, Table, Avatar). Per component: purpose, tokens used, variants and states. Add concrete `components:` YAML entries for the load-bearing ones.
    - Do's and Don'ts: 3–6 short rules incl. WCAG AA contrast.
 5. ```bash
    npx @google/design.md lint DESIGN.md

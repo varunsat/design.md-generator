@@ -24,13 +24,13 @@ If `DESIGN.md` is absent, default to **init**. If present, default to **update**
    ```
 3. Read the brief from stdout. It enumerates the eight canonical sections with per-section purpose, tokens to describe, and prompts.
 4. Edit `DESIGN.md`. Replace every placeholder paragraph with real prose:
-   - **Overview** — brand personality, audience, default stylistic choices.
+   - **Overview** — brand personality, audience, default stylistic choices. Plus product identity — app name, tagline, logo placement and rules.
    - **Colors** — per-token role and rationale; identify the single primary-action color.
    - **Typography** — per-family role; casing, weight, and letter-spacing rules.
    - **Layout** — grid model, base unit, containment.
    - **Elevation & Depth** — shadow / tonal / flat strategy.
    - **Shapes** — what the radius scale signals.
-   - **Components** — variant behavior; load-bearing components.
+   - **Components** — **be exhaustive**. Enumerate every component the product uses: Identity & chrome (Header, Footer, App name, Page Title/Subtitle, Section header), Actions (buttons, icon buttons), Inputs (text, select, checkbox, radio, switch), Containers (Card, Modal, Drawer), Navigation (Top/Side nav, Tabs, Breadcrumbs, Pagination), Feedback (Tooltip, Toast, Alert, Badge, Progress), Data display (List, Table, Avatar, Empty state). Per component: purpose, tokens used, variants and states. Add concrete `components:` YAML entries for the load-bearing ones.
    - **Do's and Don'ts** — 3–6 short rules; include WCAG AA contrast.
 5. Validate:
    ```bash
