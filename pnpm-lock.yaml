@@ -25,6 +25,9 @@ importers:
 
   packages/cli:
     dependencies:
+      '@creoit/design-md-adapters':
+        specifier: workspace:*
+        version: link:../adapters
       '@creoit/design-md-core':
         specifier: workspace:*
         version: link:../core

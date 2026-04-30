@@ -1,36 +1,92 @@
-# This workflow will run tests using node and then publish a package to GitHub Packages when a release is created
-# For more information see: https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+# Build and publish the design-md-generator packages to GitHub Packages.
+#
+# Triggers:
+#   - on every push to main and pull_request: install, typecheck, test, build (CI)
+#   - on a published GitHub Release: also publish the workspace packages
+#
+# Notes:
+#   - This is a pnpm monorepo. We publish each public workspace package
+#     under the `packages/` glob. pnpm rewrites `workspace:*` deps to the
+#     actual version at publish time.
+#   - GitHub Packages requires the npm scope to match the repository
+#     owner (lowercased). Update the package `name` fields if your scope
+#     differs — see "Publishing" in the README.
 
-name: Node.js Package
+name: CI / Publish
 
 on:
+  push:
+    branches: [main]
+  pull_request:
   release:
-    types: [created]
+    types: [published]
+
+permissions:
+  contents: read
 
 jobs:
-  build:
+  ci:
+    name: Test & build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm test
+          cache: pnpm
 
-  publish-gpr:
-    needs: build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+  publish:
+    name: Publish to GitHub Packages
+    needs: ci
+    if: github.event_name == 'release'
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Set up Node (with GitHub Packages registry)
+        uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: pnpm
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Publish public workspace packages
+        # --no-git-checks: pnpm otherwise refuses to publish from a detached
+        # checkout (releases run on the tag's commit, not the main branch).
+        # --access public: required for scoped packages.
+        run: pnpm -r --filter './packages/*' publish --access public --no-git-checks
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
