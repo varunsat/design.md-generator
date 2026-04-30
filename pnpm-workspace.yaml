@@ -1,3 +1,6 @@
 packages:
   - 'packages/*'
-  - 'examples/*'
+
+# examples/ are smoke-test fixtures — static files the CLI parses.
+# They are intentionally not part of the workspace so their npm deps
+# don't need to be resolved.

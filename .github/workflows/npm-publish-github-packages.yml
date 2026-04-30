@@ -44,14 +44,17 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Build before typecheck so that the cli's `tsc --noEmit` can
+      # resolve `@creoit/design-md-core` types (the package exposes
+      # types via dist/index.d.ts).
+      - name: Build
+        run: pnpm build
+
       - name: Typecheck
         run: pnpm typecheck
 
       - name: Test
         run: pnpm test
-
-      - name: Build
-        run: pnpm build
 
   publish:
     name: Publish to GitHub Packages
