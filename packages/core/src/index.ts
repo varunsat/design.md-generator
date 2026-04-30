@@ -14,3 +14,4 @@ export type {
 } from './types.js';
 
 export { detect } from './detector.js';
+export { extractAll, extractTailwindV3, extractTailwindV4 } from './extractors/index.js';
